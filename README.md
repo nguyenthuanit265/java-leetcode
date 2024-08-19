@@ -8,7 +8,6 @@ This repository contains my solutions to various LeetCode problems implemented i
 ## Table of Contents
 
 - [Repository Structure](#repository-structure)
-- [Problems Solved](#problems-solved)
 - [How to Use](#how-to-use)
 - [Contributing](#contributing)
 - [License](#license)
@@ -29,33 +28,6 @@ src/main/java/com/learn/
 ```
 
 Each problem solution is in its own class file, typically named after the problem or containing the problem number.
-
-## Problems Solved
-
-Here's a list of some of the problems solved in this repository:
-
-### Array
-- [Two Sum](src/main/java/com/learn/array/problem1/MainApp.java)
-- [Merge Sorted Array](src/main/java/com/learn/array/problem88/MainApp.java)
-- [Remove Element](src/main/java/com/learn/array/problem27/MainApp.java)
-
-### Binary Search
-- [Binary Search](src/main/java/com/learn/binarysearch/problem704/MainApp.java)
-- [Search Insert Position](src/main/java/com/learn/binarysearch/problem35/MainApp.java)
-
-### Two Pointers
-- [Two Sum II - Input Array Is Sorted](src/main/java/com/learn/twopointers/problem167/MainApp.java)
-
-### Sorting
-- [Sorting algorithms implementations](src/main/java/com/learn/sorting/)
-
-### Stack
-- [Valid Parentheses](src/main/java/com/learn/stack/problem20/MainApp.java)
-
-### String
-- [Reverse String](src/main/java/com/learn/string/problem344/MainApp.java)
-
-(This list will grow as more solutions are added)
 
 ## How to Use
 
