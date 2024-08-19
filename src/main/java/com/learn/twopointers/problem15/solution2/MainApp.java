@@ -9,7 +9,6 @@ public class MainApp {
     public static List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         Set<List<Integer>> ans = new HashSet<>();
-
         for (int i = 0; i < nums.length; i++) {
             int l = i + 1, r = nums.length - 1;
             while (l < r) {
@@ -19,6 +18,10 @@ public class MainApp {
                     l++;
                 } else {
                     ans.add(List.of(nums[i], nums[l], nums[r]));
+
+                    // Bỏ qua các giá trị trùng lặp cho left và right
+                    while (l < r && nums[l] == nums[l + 1]) l++;
+                    while (l < r && nums[r] == nums[r - 1]) r--;
                     l++;
                 }
             }
