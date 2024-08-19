@@ -43,5 +43,11 @@ public static int maxProfit(int[] prices) {
 }
 ```
 
-#  Another solution
-sử dụng thuật toán Kadane hoặc một lần quét duy nhất qua mảng, theo dõi giá thấp nhất đã thấy và tính toán lợi nhuận tối đa có thể tại mỗi bước. Điều này sẽ giảm độ phức tạp thời gian xuống O(n)
+# Another solution
+
+sử dụng thuật toán Kadane hoặc một lần quét duy nhất qua mảng, theo dõi giá thấp nhất đã thấy và tính toán lợi nhuận tối
+đa có thể tại mỗi bước. Điều này sẽ giảm độ phức tạp thời gian xuống O(n)
+
+# Link github
+
+https://github.com/nguyenthuanit265/java-leetcode

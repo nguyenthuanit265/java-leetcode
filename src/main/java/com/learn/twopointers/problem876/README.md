@@ -1,7 +1,11 @@
 # Intuition
+
 <!-- Describe your first thoughts on how to solve this problem. -->
-Để tìm nút giữa của một danh sách liên kết đơn, ta có thể sử dụng kỹ thuật hai con trỏ: một con trỏ di chuyển nhanh (fast) và một con trỏ di chuyển chậm (slow).
+Để tìm nút giữa của một danh sách liên kết đơn, ta có thể sử dụng kỹ thuật hai con trỏ: một con trỏ di chuyển nhanh (
+fast) và một con trỏ di chuyển chậm (slow).
+
 # Approach
+
 <!-- Describe your approach to solving the problem. -->
 
 Khởi tạo hai con trỏ slow và fast, cả hai đều trỏ vào đầu danh sách.
@@ -20,6 +24,7 @@ Space complexity:
 
 <!-- Add your space complexity here, e.g. $$O(n)$$ -->
 $$O(1)$$, vì ta chỉ sử dụng hai con trỏ phụ trợ, không phụ thuộc vào kích thước của danh sách đầu vào.
+
 # Code
 
 ```
@@ -46,5 +51,12 @@ class Solution {
     }
 }
 ```
+
 # # # 
-Đoạn code này sử dụng kỹ thuật "Tortoise and Hare" (Rùa và Thỏ) để tìm nút giữa của danh sách liên kết. Kỹ thuật này rất hiệu quả vì nó chỉ cần duyệt qua danh sách một lần và không cần biết trước độ dài của danh sách.
+
+Đoạn code này sử dụng kỹ thuật "Tortoise and Hare" (Rùa và Thỏ) để tìm nút giữa của danh sách liên kết. Kỹ thuật này rất
+hiệu quả vì nó chỉ cần duyệt qua danh sách một lần và không cần biết trước độ dài của danh sách.
+
+# Link github
+
+https://github.com/nguyenthuanit265/java-leetcode

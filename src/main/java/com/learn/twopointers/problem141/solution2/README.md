@@ -1,7 +1,11 @@
 # Intuition
+
 <!-- Describe your first thoughts on how to solve this problem. -->
-Sử dụng hai con trỏ di chuyển với tốc độ khác nhau trong danh sách liên kết. Nếu có chu trình, hai con trỏ sẽ gặp nhau tại một điểm nào đó.
+Sử dụng hai con trỏ di chuyển với tốc độ khác nhau trong danh sách liên kết. Nếu có chu trình, hai con trỏ sẽ gặp nhau
+tại một điểm nào đó.
+
 # Approach
+
 <!-- Describe your approach to solving the problem. -->
 
 Khởi tạo hai con trỏ slow (rùa) và fast (thỏ) cùng trỏ vào đầu danh sách.
@@ -14,13 +18,16 @@ Nếu fast đạt tới null, tức là không có chu trình.
 Time complexity:
 
 <!-- Add your time complexity here, e.g. $$O(n)$$ -->
-$$O(n)$$, trong đó n là số nút trong danh sách liên kết. Trong trường hợp xấu nhất, ta phải duyệt qua tất cả các nút một lần.
+$$O(n)$$, trong đó n là số nút trong danh sách liên kết. Trong trường hợp xấu nhất, ta phải duyệt qua tất cả các nút một
+lần.
 
 Space complexity:
 
 <!-- Add your space complexity here, e.g. $$O(n)$$ -->
 $$O(1)$$, vì ta chỉ sử dụng hai con trỏ phụ trợ, không phụ thuộc vào kích thước của danh sách đầu vào.
+
 # Code
+
 ```
 /**
  * Definition for singly-linked list.
@@ -64,4 +71,5 @@ public class Solution {
 - Nếu slow và fast gặp nhau, tức là có chu trình.
 
 # Link github
+
 https://github.com/nguyenthuanit265/java-leetcode

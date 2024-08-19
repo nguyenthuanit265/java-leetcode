@@ -1,8 +1,11 @@
 # Intuition
+
 <!-- Describe your first thoughts on how to solve this problem. -->
-Để giải quyết vấn đề loại bỏ các phần tử trùng lặp quá 2 lần trong mảng, ta có thể sử dụng một Map để đếm số lần xuất hiện của mỗi phần tử và một List để lưu trữ các phần tử sau khi xử lý.
+Để giải quyết vấn đề loại bỏ các phần tử trùng lặp quá 2 lần trong mảng, ta có thể sử dụng một Map để đếm số lần xuất
+hiện của mỗi phần tử và một List để lưu trữ các phần tử sau khi xử lý.
 
 # Approach
+
 <!-- Describe your approach to solving the problem. -->
 Sử dụng HashMap để đếm số lần xuất hiện của mỗi phần tử trong mảng.
 Sử dụng ArrayList để lưu trữ các phần tử của mảng.
@@ -23,6 +26,7 @@ Space complexity:
 $$O(n)$$, do sử dụng thêm HashMap và ArrayList để lưu trữ.
 
 # Code
+
 ```
 class Solution {
     public int removeDuplicates(int[] nums) {
@@ -62,3 +66,7 @@ class Solution {
     }
 }
 ```
+
+# Link github
+
+https://github.com/nguyenthuanit265/java-leetcode

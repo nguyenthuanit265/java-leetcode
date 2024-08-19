@@ -1,7 +1,11 @@
 # Intuition
+
 <!-- Describe your first thoughts on how to solve this problem. -->
-Để loại bỏ các phần tử trùng lặp trong một mảng đã được sắp xếp, ta có thể sử dụng một con trỏ để theo dõi vị trí cần ghi đè các phần tử không trùng lặp.
+Để loại bỏ các phần tử trùng lặp trong một mảng đã được sắp xếp, ta có thể sử dụng một con trỏ để theo dõi vị trí cần
+ghi đè các phần tử không trùng lặp.
+
 # Approach
+
 <!-- Describe your approach to solving the problem. -->
 
 Sử dụng một biến index để theo dõi vị trí cần ghi đè phần tử không trùng lặp tiếp theo.
@@ -23,6 +27,7 @@ Space complexity:
 $$O(1)$$, vì ta chỉ sử dụng một số biến phụ trợ và không cần thêm bộ nhớ phụ thuộc vào kích thước đầu vào.
 
 # Code
+
 ```
 class Solution {
     public int removeDuplicates(int[] nums) {
@@ -38,3 +43,7 @@ class Solution {
     }
 }
 ```
+
+# Link github
+
+https://github.com/nguyenthuanit265/java-leetcode

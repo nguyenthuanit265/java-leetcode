@@ -1,8 +1,11 @@
 # Intuition
+
 <!-- Describe your first thoughts on how to solve this problem. -->
-Để tìm phần tử xuất hiện nhiều hơn n/2 lần trong mảng (phần tử đa số), ta có thể sử dụng một Map để đếm số lần xuất hiện của mỗi phần tử, sau đó tìm phần tử có số lần xuất hiện lớn nhất và thỏa mãn điều kiện.
+Để tìm phần tử xuất hiện nhiều hơn n/2 lần trong mảng (phần tử đa số), ta có thể sử dụng một Map để đếm số lần xuất hiện
+của mỗi phần tử, sau đó tìm phần tử có số lần xuất hiện lớn nhất và thỏa mãn điều kiện.
 
 # Approach
+
 <!-- Describe your approach to solving the problem. -->
 
 Sử dụng HashMap để đếm số lần xuất hiện của mỗi phần tử trong mảng.
@@ -21,7 +24,9 @@ Space complexity:
 
 <!-- Add your space complexity here, e.g. $$O(n)$$ -->
 $$O(n)$$, trong trường hợp xấu nhất khi tất cả các phần tử đều khác nhau.
+
 # Code
+
 ```
 class Solution {
     public int majorityElement(int[] nums) {
@@ -46,3 +51,7 @@ class Solution {
     }
 }
 ```
+
+# Link github
+
+https://github.com/nguyenthuanit265/java-leetcode

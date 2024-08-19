@@ -52,3 +52,7 @@ public class Solution {
 Một cách tiếp cận hiệu quả hơn là sử dụng phương pháp hai con trỏ, với một con trỏ ở đầu mảng và một con trỏ ở cuối
 mảng, di chuyển các con trỏ dựa trên tổng của các phần tử tại vị trí đó. Điều này sẽ giảm độ phức tạp thời gian xuống O(
 n).
+
+# Link github
+
+https://github.com/nguyenthuanit265/java-leetcode
