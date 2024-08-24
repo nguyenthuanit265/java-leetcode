@@ -2,24 +2,25 @@
 
 <!-- Describe your first thoughts on how to solve this problem. -->
 
-Ý tưởng ban đầu là sử dụng kỹ thuật cửa sổ trượt (sliding window) kết hợp với một map để theo dõi các chuỗi con đã xuất
-hiện. Chúng ta có thể duyệt qua chuỗi, tạo các chuỗi con 10 ký tự và kiểm tra sự xuất hiện của chúng.
+Ý tưởng ban đầu là sử dụng kỹ thuật cửa sổ trượt (sliding window) kết hợp với các tập hợp (Set) để theo dõi và xác định
+các chuỗi con DNA 10 ký tự xuất hiện nhiều hơn một lần.
 
 # Approach
 
 <!-- Describe your approach to solving the problem. -->
 
 1. Kiểm tra độ dài chuỗi đầu vào, nếu nhỏ hơn 10, trả về list rỗng.
-2. Sử dụng một HashMap để lưu trữ các chuỗi con đã gặp và số lần xuất hiện của chúng.
-3. Sử dụng một HashSet để lưu trữ các chuỗi con xuất hiện nhiều hơn một lần (kết quả cuối cùng).
-4. Sử dụng StringBuilder để xây dựng và cập nhật chuỗi con hiện tại một cách hiệu quả.
-5. Duyệt qua chuỗi đầu vào:
+2. Sử dụng hai Set:
+    - `visited`: để lưu trữ tất cả các chuỗi con 10 ký tự đã gặp.
+    - `ans`: để lưu trữ các chuỗi con 10 ký tự xuất hiện nhiều hơn một lần.
+3. Sử dụng StringBuilder để xây dựng và cập nhật chuỗi con hiện tại một cách hiệu quả.
+4. Duyệt qua chuỗi đầu vào:
     - Ban đầu, xây dựng chuỗi con đầu tiên có độ dài 10.
     - Sau đó, sử dụng kỹ thuật cửa sổ trượt để tạo các chuỗi con tiếp theo.
-    - Với mỗi chuỗi con, kiểm tra xem nó đã tồn tại trong map chưa:
-        - Nếu có, thêm vào set kết quả.
-        - Nếu chưa, thêm vào map.
-6. Cuối cùng, chuyển set kết quả thành ArrayList và trả về.
+    - Với mỗi chuỗi con, kiểm tra xem nó đã tồn tại trong `visited` chưa:
+        - Nếu có, thêm vào `ans`.
+        - Nếu chưa, thêm vào `visited`.
+5. Cuối cùng, chuyển `ans` thành ArrayList và trả về.
 
 # Complexity
 
@@ -45,7 +46,7 @@ class Solution {
         if (s.length() < windowSize) {
             return Collections.emptyList();
         }
-        Map<String, Integer> map = new HashMap<>();
+        Set<String> visited = new HashSet<>();
         Set<String> ans = new HashSet<>();
         StringBuilder builder = new StringBuilder();
 
@@ -53,23 +54,21 @@ class Solution {
         for (int i = 0; i < windowSize; i++) {
             builder.append(sArr[i]);
         }
-        map.put(builder.toString(), 1);
+        visited.add(builder.toString());
 
         for (int i = windowSize; i < sArr.length; i++) {
             builder.append(sArr[i]);
             builder.deleteCharAt(0);
-            if (map.containsKey(builder.toString())) {
+            if (visited.contains(builder.toString())) {
                 ans.add(builder.toString());
             } else {
-                map.put(builder.toString(), 1);
+                visited.add(builder.toString());
             }
         }
 
         return new ArrayList<>(ans);
     }
 }
-```
-
 # Link github
 
 https://github.com/nguyenthuanit265/java-leetcode

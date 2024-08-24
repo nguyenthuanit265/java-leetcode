@@ -45,7 +45,7 @@ public class MainApp {
         if (s.length() < windowSize) {
             return Collections.emptyList();
         }
-        Map<String, Integer> map = new HashMap<>();
+        Set<String> visited = new HashSet<>();
         Set<String> ans = new HashSet<>();
         StringBuilder builder = new StringBuilder();
 
@@ -53,15 +53,15 @@ public class MainApp {
         for (int i = 0; i < windowSize; i++) {
             builder.append(sArr[i]);
         }
-        map.put(builder.toString(), 1);
+        visited.add(builder.toString());
 
         for (int i = windowSize; i < sArr.length; i++) {
             builder.append(sArr[i]);
             builder.deleteCharAt(0);
-            if (map.containsKey(builder.toString())) {
+            if (visited.contains(builder.toString())) {
                 ans.add(builder.toString());
             } else {
-                map.put(builder.toString(), 1);
+                visited.add(builder.toString());
             }
         }
 
