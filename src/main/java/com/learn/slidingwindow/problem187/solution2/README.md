@@ -69,6 +69,9 @@ class Solution {
         return new ArrayList<>(ans);
     }
 }
+
+```
+
 # Link github
 
 https://github.com/nguyenthuanit265/java-leetcode
