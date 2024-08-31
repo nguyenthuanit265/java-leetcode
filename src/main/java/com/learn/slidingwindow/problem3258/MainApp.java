@@ -35,8 +35,8 @@ public class MainApp {
     }
 
     public static void main(String[] args) {
-        System.out.println(countKConstraintSubstrings("10101", 1));
-        System.out.println(countKConstraintSubstrings("1010101", 2));
-        System.out.println(countKConstraintSubstrings("11111", 2));
+        System.out.println(countKConstraintSubstrings("10101", 1)); //12
+        System.out.println(countKConstraintSubstrings("1010101", 2)); //25
+        System.out.println(countKConstraintSubstrings("11111", 2)); //15
     }
 }
