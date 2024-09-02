@@ -50,6 +50,10 @@ class Solution {
 2. Vòng lặp while bên trong giúp thu hẹp cửa sổ từ bên trái khi tìm thấy một mảng con thỏa mãn.
 3. Cuối cùng, nếu `ans` vẫn là `Integer.MAX_VALUE`, nghĩa là không tìm thấy mảng con thỏa mãn, trả về 0.
 
+# Submission
+![img.png](img.png)
+
+
 # Link github
 
 https://github.com/nguyenthuanit265/java-leetcode
