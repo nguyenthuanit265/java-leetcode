@@ -3,7 +3,8 @@
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 ![LeetCode](https://img.shields.io/badge/LeetCode-000000?style=for-the-badge&logo=LeetCode&logoColor=#d16c06)
 
-This repository contains my solutions to various LeetCode problems implemented in Java. The goal is to improve problem-solving skills and share knowledge with the community.
+This repository contains my solutions to various LeetCode problems implemented in Java. The goal is to improve
+problem-solving skills and share knowledge with the community.
 
 ## Table of Contents
 
@@ -18,13 +19,29 @@ This repository contains my solutions to various LeetCode problems implemented i
 The solutions are organized into packages based on problem categories:
 
 ```
-src/main/java/com/learn/
-├── array/
-├── binarysearch/
-├── twopointers/
-├── sorting/
-├── stack/
-└── string/
+java-leetcode/
+├── .idea/
+├── src/
+│   └── main/
+│       └── java/
+│           └── com.learn/
+│               ├── binarysearch/
+│               ├── concurrency.problem1114/
+│               │   ├── Foo.java
+│               │   └── MainApp.java
+│               ├── recursionandbacktrack/
+│               ├── slidingwindow/
+│               │   ├── base/
+│               │   ├── problem187/
+│               │   │   ├── solution1/
+│               │   │   ├── solution2/
+│               │   │   └── solution3/
+│               │   ├── problem209/
+│               │   ├── problem1652/
+│               │   ├── problem3206/
+│               │   └── problem3258/
+│               └── stackandqueue/
+└── README.md
 ```
 
 Each problem solution is in its own class file, typically named after the problem or containing the problem number.
@@ -36,12 +53,14 @@ Each problem solution is in its own class file, typically named after the proble
 ```
 git clone https://github.com/nguyenthuanit265/java-leetcode.git
 ```
+
 2. Navigate to the specific problem you're interested in.
 3. Each file contains a class with the solution method and usually includes a `main` method for testing.
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any
+contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingSolution`)
@@ -59,3 +78,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - Linkedin: [@Nguyen Thuan](https://www.linkedin.com/in/nguyen-huynh-minh-thuan-it/)
 
 Project Link: [https://github.com/nguyenthuanit265/java-leetcode](https://github.com/nguyenthuanit265/java-leetcode)
+
+---
+
+Happy Coding!
