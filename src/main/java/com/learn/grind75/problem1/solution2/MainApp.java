@@ -1,4 +1,4 @@
-package com.learn.slidingwindow.problem1.solution2;
+package com.learn.grind75.problem1.solution2;
 
 import java.util.*;
 

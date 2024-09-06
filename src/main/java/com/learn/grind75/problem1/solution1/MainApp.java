@@ -1,4 +1,4 @@
-package com.learn.slidingwindow.problem1.solution1;
+package com.learn.grind75.problem1.solution1;
 
 import java.util.Arrays;
 
