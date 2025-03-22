@@ -1,4 +1,4 @@
-package com.learn.bigo;
+package com.learn.bigo.buoi_2;
 
 import java.util.Scanner;
 

@@ -1,7 +1,6 @@
-package com.learn.bigo;
+package com.learn.bigo.buoi_2;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MainApp_Buoi2_2 {
     public static void main(String[] args) {
