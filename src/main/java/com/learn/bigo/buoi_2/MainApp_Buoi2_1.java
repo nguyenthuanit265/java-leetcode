@@ -12,9 +12,11 @@ public class MainApp_Buoi2_1 {
         int n = Integer.parseInt(firstLine.split(" ")[0]);
         int k = Integer.parseInt(firstLine.split(" ")[1]);
         if (k == 1 && n >= k) {
-            System.out.println("0");
+            System.out.println("1 1");
+            return;
         } else if (n < k) {
             System.out.println("-1 -1");
+            return;
         }
 
         String[] array = secondLine.split(" ");
@@ -32,6 +34,15 @@ public class MainApp_Buoi2_1 {
         for (int i = indexStart + 1; i < n; i++) {
             if (!visited.contains(array[i])) {
                 count++;
+            } else {
+                while (Objects.equals(array[indexStart], array[i])) {
+                    indexStart++;
+                }
+
+                String charStartTemp = array[indexStart];
+                while (indexStart < n - 1 && charStartTemp.equals(array[indexStart + 1])) {
+                    indexStart++;
+                }
             }
             visited.add(array[i]);
 
@@ -53,3 +64,8 @@ public class MainApp_Buoi2_1 {
 
 
 //2 5 6 5 2 1 7 9 7 2 5 5 2 4
+
+
+//8 5
+//1 2 1 1 2 3 4 5
+// 4 8
