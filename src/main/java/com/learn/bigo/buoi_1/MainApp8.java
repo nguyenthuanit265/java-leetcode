@@ -1,8 +1,6 @@
 package com.learn.bigo.buoi_1;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainApp8 {
     public static void main(String[] args) {
@@ -14,31 +12,51 @@ public class MainApp8 {
         List<String> sList = Arrays.asList(s.split(""));
         List<String> tList = Arrays.asList(t.split(""));
 
-        for (String item : tList) {
-            if (!sList.contains(item)) {
-                System.out.println("need tree");
-                return;
-            }
+        if (isNeedTree(sList, tList)) {
+            System.out.println("need tree");
+            return;
         }
-        if (sList.size() == tList.size()) {
+
+        if (isSub(s, t)) {
+            System.out.println("automaton");
+            return;
+        }
+
+        if (isArray(sList, tList)) {
             System.out.println("array");
-        } else {
-            if (isSub(s, t)) {
-                System.out.println("automaton");
-            } else {
-                System.out.println("both");
-            }
+            return;
         }
+
+        System.out.println("both");
 
     }
 
-    private static boolean isSub(String t, String s) {
-        int j = 0;
-        for (int i = 0; i < s.length() && j < t.length(); i++) {
-            if (s.charAt(i) == t.charAt(j)) {
-                j++;
+    private static boolean isNeedTree(List<String> sList, List<String> tList) {
+        for (String item : tList) {
+            if (!sList.contains(item)) {
+                return true;
             }
         }
-        return j == t.length();
+
+        return false;
+    }
+
+    private static boolean isSub(String s, String t) {
+        return s.contains(t);
+    }
+
+    private static boolean isArray(List<String> sList, List<String> tList) {
+        if (sList.size() != tList.size()) {
+            return false;
+        }
+        Map<String, Integer> mapS =  new HashMap<>();
+        Map<String, Integer> mapT =  new HashMap<>();
+        for (String item : sList) {
+            mapS.put(item, mapS.getOrDefault(item, 0) + 1);
+        }
+        for (String item : tList) {
+            mapT.put(item, mapT.getOrDefault(item, 0) + 1);
+        }
+        return mapS.equals(mapT);
     }
 }
