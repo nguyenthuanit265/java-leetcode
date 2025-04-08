@@ -17,18 +17,14 @@ public class MainApp_Buoi5_6 {
         int t = scanner.nextInt(); // Number of test cases
 
         while (t-- > 0) {
-            // Reset flag for each test case
             isFound = false;
 
-            // Read dimensions
             r = scanner.nextInt();
             c = scanner.nextInt();
 
-            // Initialize matrix and visited array
             matrix = new char[r][c];
             visited = new boolean[r][c];
 
-            // Read matrix
             for (int i = 0; i < r; i++) {
                 String line = scanner.next();
                 for (int j = 0; j < c; j++) {
@@ -36,7 +32,6 @@ public class MainApp_Buoi5_6 {
                 }
             }
 
-            // Try starting the search from each cell with 'A'
             for (int i = 0; i < r; i++) {
                 for (int j = 0; j < c; j++) {
                     if (matrix[i][j] == 'A' && !isFound) {
