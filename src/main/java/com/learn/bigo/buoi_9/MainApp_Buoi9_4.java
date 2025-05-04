@@ -1,9 +1,6 @@
 package com.learn.bigo.buoi_9;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainApp_Buoi9_4 {
     static class Point {
@@ -17,6 +14,12 @@ public class MainApp_Buoi9_4 {
     }
 
     public static void main(String[] args) {
+        String siteIdInput = "YORK HOTEL";
+        List<String> siteIdsList = Arrays.asList(siteIdInput.split(";"));
+        System.out.println("----------------------00q0q0q00qq");
+        System.out.println(siteIdsList);
+
+
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String line = scanner.nextLine();
