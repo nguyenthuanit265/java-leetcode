@@ -12,36 +12,19 @@ public class MainApp {
     }
 
     public static boolean isAnagram(String s, String t) {
-        Map<String, Integer> mapS = new HashMap<>();
-        String[] stringS = s.split("");
-        for (String item : stringS) {
-            if (mapS.containsKey(item)) {
-                mapS.put(item, mapS.get(item) + 1);
-            } else {
-                mapS.put(item, 1);
-            }
+        Map<Character, Integer> mapS = new HashMap<>();
+        for (char item : s.toCharArray()) {
+            mapS.put(item, mapS.getOrDefault(item, 0) + 1);
         }
 
-        String[] stringT = t.split("");
-        for (String item : stringT) {
-            if (mapS.containsKey(item)) {
-                int count = mapS.get(item);
-                if (count > 0) {
-                    count--;
-                    if (count == 0) {
-                        mapS.remove(item);
-                    } else {
-                        mapS.put(item, count);
-                    }
-                } else {
-                    return false;
-                }
-            } else {
+        for (char item : t.toCharArray()) {
+            if (!mapS.containsKey(item)) {
                 return false;
             }
+
+            mapS.put(item, mapS.get(item) - 1);
+            if (mapS.get(item) == 0) mapS.remove(item);
         }
-
-
         return mapS.isEmpty();
     }
 }
