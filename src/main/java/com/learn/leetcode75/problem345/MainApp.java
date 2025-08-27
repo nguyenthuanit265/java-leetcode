@@ -31,13 +31,13 @@ public class MainApp {
         return builder.toString();
     }
 
-
-    public static String reverseVowels2(String s) {
-
-    }
+//
+//    public static String reverseVowels2(String s) {
+//
+//    }
 
     public static void main(String[] args) {
-        System.out.println(reverseVowels2("IceCreAm"));
-        System.out.println(reverseVowels2(" "));
+//        System.out.println(reverseVowels2("IceCreAm"));
+//        System.out.println(reverseVowels2(" "));
     }
 }
