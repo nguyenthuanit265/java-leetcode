@@ -1,5 +1,7 @@
 package com.learn.leetcode75.problem151;
 
+import java.util.Stack;
+
 public class MainApp {
 
     public static String reverseWords(String s) {
@@ -29,9 +31,22 @@ public class MainApp {
         return builder.toString().strip();
     }
 
+
+    public static String reverseWords2(String s) {
+        String[] words = s.strip().split(" ");
+        StringBuilder builder = new StringBuilder();
+        for (int i = words.length - 1; i >= 0; i--) {
+            if (!words[i].isEmpty()) {
+                builder.append(words[i]).append(" ");
+            }
+        }
+
+        return builder.toString().strip();
+    }
+
     public static void main(String[] args) {
-        System.out.println(reverseWords("the sky is blue"));
-        System.out.println(reverseWords("  hello world  "));
-        System.out.println(reverseWords("a good   example"));
+        System.out.println(reverseWords2("the sky is blue"));
+        System.out.println(reverseWords2("  hello world  "));
+        System.out.println(reverseWords2("a good   example"));
     }
 }
