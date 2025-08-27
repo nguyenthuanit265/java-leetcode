@@ -5,19 +5,32 @@ public class MainApp {
         if (!isValid(str1, str2)) {
             return "";
         }
+        int i = 0, j = 0, run = 1;
+        String res = "";
+        String str = str1.length() >= str2.length() ? str2 : str1;
+        while (j < str.length()) {
+            String temp1 = str.substring(0,  i + run);
 
-        String str = str1.length() > str2.length() ? str2 : str1;
-        int len = str.length();
-        int i = 1;
-        while (i <= len) {
-            String temp = str.substring(0, i);
-//            if () {
-//
-//            }
+            j = i + run;
+            if (j > str.length() || j + run > str.length()) {
+                break;
+            }
+            String temp2 = str.substring(j, j + run);
+            if (temp1.equals(temp2)) {
+                if (res.isEmpty()) {
+                    res = temp1;
+                } else {
+                    if (temp1.length() > res.length()) {
+                        res = temp1;
+                    }
+                }
+            } else {
+                run++;
+            }
         }
 
 
-        return "";
+        return res;
     }
 
     public static boolean isValid(String str1, String str2) {
