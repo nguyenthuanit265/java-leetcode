@@ -7,23 +7,21 @@ public class MainApp {
         }
         int i = 0, j = 0, run = 1;
         String res = "";
-        String str = str1.length() >= str2.length() ? str2 : str1;
+        String str = str1.length() >= str2.length() ? str1 : str2;
         while (j < str.length()) {
             String temp1 = str.substring(0,  i + run);
 
             j = i + run;
-            if (j > str.length() || j + run > str.length()) {
-                break;
-            }
             String temp2 = str.substring(j, j + run);
             if (temp1.equals(temp2)) {
-                if (res.isEmpty()) {
+                if (res.length() == 0) {
                     res = temp1;
                 } else {
                     if (temp1.length() > res.length()) {
                         res = temp1;
                     }
                 }
+                return temp1;
             } else {
                 run++;
             }
