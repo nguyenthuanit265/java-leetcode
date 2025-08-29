@@ -1,37 +1,34 @@
 package com.learn.leetcode75.problem334;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class MainApp {
     public boolean increasingTriplet(int[] nums) {
-        Set<Integer> set = Arrays.stream(nums)
-                .boxed()
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-
-        System.out.println(set);
-        List<List<Integer>> list = new ArrayList<>();
-        for (int i = 0; i < set.size(); i++) {
-            for (int j = i + 1; j < set.size(); j++) {
-                if (nums[i] < nums[j]) {
-                    list.add(List.of(i, j));
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] > nums[i]) {
+                    if (map.containsKey(j)) {
+                        map.put(i, new ArrayList<>(List.of(j)));
+                    } else {
+                        List<Integer> val = map.get(j);
+                        val.add(j);
+                        map.put(i, val);
+                    }
+                }
+            }
+        }
+        for (List<Integer> values : map.values()) {
+            for (int i = 0; i < values.size(); i++) {
+                for (int j = i + 1; j < values.size(); j++) {
+                    if (values.get(j) > values.get(i)) {
+                       return true;
+                    }
                 }
             }
         }
 
-        if (list.isEmpty()) {
-            return false;
-        }
 
-        List<Integer> listNums = new ArrayList<>(set);
-        for (List<Integer> group : list) {
-            int j = group.get(1);
-            for (int k = j + 1; k < set.size(); k++) {
-                if (listNums.get(k) > listNums.get(j)) {
-                    return true;
-                }
-            }
-        }
 
 
 
