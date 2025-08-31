@@ -31,5 +31,6 @@ public class MainApp {
     public static void main(String[] args) {
         System.out.println(findMaxAverage(new int[]{1, 12, -5, -6, 50, 3}, 4));
         System.out.println(findMaxAverage(new int[]{5}, 1));
+        System.out.println(findMaxAverage(new int[]{-1}, 1));
     }
 }
