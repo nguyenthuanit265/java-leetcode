@@ -20,7 +20,7 @@ public class MainApp {
                 }
             }
         }
-        return 0;
+        return write;
     }
 
     public static void main(String[] args) {
