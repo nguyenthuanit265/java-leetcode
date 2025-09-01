@@ -8,7 +8,7 @@ public class MainApp {
         int i = 0, j = 0, run = 1;
         String res = "";
         String str = str1.length() >= str2.length() ? str1 : str2;
-        while (j < str.length()) {
+        while (j + run < str.length()) {
             String temp1 = str.substring(0,  i + run);
 
             j = i + run;
@@ -21,7 +21,7 @@ public class MainApp {
                         res = temp1;
                     }
                 }
-                return temp1;
+                run++;
             } else {
                 run++;
             }
@@ -36,7 +36,6 @@ public class MainApp {
     }
 
     public static void main(String[] args) {
-        String temo = "012345";
-        System.out.println(temo.substring(0, 1));
+        System.out.println(gcdOfStrings("FFBNXKSTFFBNXKSTFFBNXKSTFFBNXKSTFFBNXKST", "FFBNXKSTFFBNXKSTFFBNXKSTFFBNXKSTFFBNXKSTFFBNXKSTFFBNXKSTFFBNXKSTFFBNXKST"));
     }
 }
