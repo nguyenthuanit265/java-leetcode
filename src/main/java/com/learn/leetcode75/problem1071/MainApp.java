@@ -9,7 +9,7 @@ public class MainApp {
         String res = "";
         String str = str1.length() >= str2.length() ? str1 : str2;
         while (j + run < str.length()) {
-            String temp1 = str.substring(0,  i + run);
+            String temp1 = str.substring(0, i + run);
 
             j = i + run;
             String temp2 = str.substring(j, j + run);
@@ -17,7 +17,7 @@ public class MainApp {
                 if (res.length() == 0) {
                     res = temp1;
                 } else {
-                    if (temp1.length() > res.length()) {
+                    if (temp1.length() > res.length() && str1.length() % temp1.length() == 0 && str2.length() % temp1.length() == 0) {
                         res = temp1;
                     }
                 }
