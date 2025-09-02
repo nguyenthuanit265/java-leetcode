@@ -5,9 +5,13 @@ public class MainApp {
         if (!isValid(str1, str2)) {
             return "";
         }
+
+        if (str1.length() == str2.length()) {
+            return str1;
+        }
         int i = 0, j = 0, run = 1;
         String res = "";
-        String str = str1.length() >= str2.length() ? str1 : str2;
+        String str = str1.length() > str2.length() ? str1 : str2;
         while (j + run < str.length()) {
             String temp1 = str.substring(0, i + run);
 
