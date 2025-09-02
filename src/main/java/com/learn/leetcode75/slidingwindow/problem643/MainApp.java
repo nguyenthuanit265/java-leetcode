@@ -1,4 +1,4 @@
-package com.learn.leetcode75.problem643;
+package com.learn.leetcode75.slidingwindow.problem643;
 
 public class MainApp {
     public static double findMaxAverage(int[] nums, int k) {
