@@ -42,5 +42,6 @@ public class MainApp {
         System.out.println(maxVowels("abciiidef", 3));
         System.out.println(maxVowels("aeiou", 2));
         System.out.println(maxVowels("leetcode", 3));
+        System.out.println(maxVowels("weallloveyou", 7));
     }
 }
