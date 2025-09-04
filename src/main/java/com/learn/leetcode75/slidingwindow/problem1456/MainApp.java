@@ -10,8 +10,31 @@ public class MainApp {
         Set<Character> vowels = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u'));
         int left = 0, right = 0;
         char[] chars = s.toCharArray();
+        while (left < s.length() && right < s.length()) {
+            if (count == k) {
+                return k;
+            }
+            if (vowels.contains(chars[right])) {
+                count++;
+                right++;
+            } else {
+                if (count > res) {
+                    res = count;
+                }
+                left++;
+                right = left;
+                count = 0;
+            }
 
-
+            if (right == s.length() - 1) {
+                if (count > res) {
+                    res = count;
+                }
+                left++;
+                right = left;
+                count = 0;
+            }
+        }
         return res;
     }
 
