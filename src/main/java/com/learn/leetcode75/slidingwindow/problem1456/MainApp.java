@@ -17,6 +17,10 @@ public class MainApp {
             if (vowels.contains(chars[right])) {
                 count++;
                 right++;
+                if (count > res) {
+                    res = count;
+                }
+
             } else {
                 if (count < k) {
                     right++;
@@ -25,11 +29,16 @@ public class MainApp {
                 if (count > res) {
                     res = count;
                 }
-                count = 0;
+
+                if (vowels.contains(chars[left])) {
+                    count--;
+                }
+
                 left++;
                 right = left;
             }
         }
+
         return res;
     }
 
