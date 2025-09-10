@@ -10,6 +10,8 @@ public class MainApp {
         Set<Character> vowels = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u'));
         int left = 0, right = 0;
         char[] chars = s.toCharArray();
+        int len = s.length();
+        int window = 0;
         while (left < s.length() && right < s.length()) {
             if (count == k) {
                 return k;
@@ -17,25 +19,35 @@ public class MainApp {
             if (vowels.contains(chars[right])) {
                 count++;
                 right++;
+                window++;
                 if (count > res) {
                     res = count;
                 }
-
+                if (window == k) {
+                    if (vowels.contains(chars[left])) {
+                        count--;
+                    }
+                    left++;
+                    right = left;
+                }
             } else {
-                if (count < k) {
+                if (right < len - 1) {
                     right++;
-                    continue;
+                    window++;
+                    if (window == k) {
+                        if (vowels.contains(chars[left])) {
+                            count--;
+                        }
+                        left++;
+                        right = left;
+                    }
+                } else {
+                    if (vowels.contains(chars[left])) {
+                        count--;
+                    }
+                    left++;
+                    right = left;
                 }
-                if (count > res) {
-                    res = count;
-                }
-
-                if (vowels.contains(chars[left])) {
-                    count--;
-                }
-
-                left++;
-                right = left;
             }
         }
 
