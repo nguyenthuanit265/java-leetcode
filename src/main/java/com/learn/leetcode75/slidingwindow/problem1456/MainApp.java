@@ -16,6 +16,14 @@ public class MainApp {
             if (count == k) {
                 return k;
             }
+//            if (window == k) {
+//                if (vowels.contains(chars[left])) {
+//                    count--;
+//                }
+//                left++;
+//                right = left;
+//            }
+
             if (vowels.contains(chars[right])) {
                 count++;
                 right++;
@@ -29,6 +37,7 @@ public class MainApp {
                     }
                     left++;
                     right = left;
+                    window = 0;
                 }
             } else {
                 if (right < len - 1) {
@@ -40,6 +49,7 @@ public class MainApp {
                         }
                         left++;
                         right = left;
+                        window = 0;
                     }
                 } else {
                     if (vowels.contains(chars[left])) {
@@ -47,6 +57,7 @@ public class MainApp {
                     }
                     left++;
                     right = left;
+                    window = 0;
                 }
             }
         }
