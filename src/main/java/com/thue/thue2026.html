@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Thuế TNCN - So sánh Biểu thuế 7 bậc vs 5 bậc</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0f1c;
+            --bg-secondary: #111827;
+            --bg-card: #1a2235;
+            --bg-card-hover: #1f2a42;
+            --accent-old: #f59e0b;
+            --accent-old-dim: rgba(245, 158, 11, 0.15);
+            --accent-new: #10b981;
+            --accent-new-dim: rgba(16, 185, 129, 0.15);
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #2d3a52;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --gradient-old: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --gradient-new: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Background Effects */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            background: var(--accent-new-dim);
+            color: var(--accent-new);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* Calculator Mode Toggle */
+        .mode-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2.5rem;
+            animation: fadeIn 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .mode-btn {
+            padding: 0.875rem 2rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-btn:first-child {
+            border-radius: 12px 0 0 12px;
+        }
+
+        .mode-btn:last-child {
+            border-radius: 0 12px 12px 0;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-color: transparent;
+            color: white;
+        }
+
+        .mode-btn:hover:not(.active) {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-blue);
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Input Card */
+        .input-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-title-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            padding-right: 100px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
+        .input-suffix {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Dependents Input */
+        .dependents-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dependents-btn {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dependents-btn:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .dependents-value {
+            flex: 1;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 1.5rem 0;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Radio Group */
+        .radio-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .radio-option {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .radio-option input {
+            display: none;
+        }
+
+        .radio-option .radio-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .radio-option:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .radio-option.active {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: var(--accent-blue);
+        }
+
+        .radio-option.active .radio-label {
+            color: var(--accent-blue);
+        }
+
+        /* Input Hint */
+        .input-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Small Input */
+        .input-wrapper.small input {
+            padding-right: 50px;
+            width: 150px;
+        }
+
+        /* Custom Insurance Group Animation */
+        .custom-insurance-group {
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .custom-insurance-group.show {
+            display: block !important;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-box-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box-content {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .info-box-content strong {
+            color: var(--text-primary);
+        }
+
+        /* Results Section */
+        .results-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Result Card */
+        .result-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 1.75rem;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .result-card.old {
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .result-card.new {
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .result-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-card-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .result-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .result-card.old .result-card-icon {
+            background: var(--accent-old-dim);
+        }
+
+        .result-card.new .result-card-icon {
+            background: var(--accent-new-dim);
+        }
+
+        .result-card-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .result-card.old .result-card-label {
+            color: var(--accent-old);
+        }
+
+        .result-card.new .result-card-label {
+            color: var(--accent-new);
+        }
+
+        .result-card-badge {
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .result-card.old .result-card-badge {
+            background: var(--accent-old-dim);
+            color: var(--accent-old);
+        }
+
+        .result-card.new .result-card-badge {
+            background: var(--accent-new-dim);
+            color: var(--accent-new);
+        }
+
+        /* Result Items */
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.875rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-item-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .result-item-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .result-item.highlight {
+            background: rgba(255, 255, 255, 0.03);
+            margin: 0.5rem -1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            border: none;
+        }
+
+        .result-item.highlight .result-item-label {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .result-item.highlight .result-item-value {
+            font-size: 1.25rem;
+        }
+
+        .result-card.old .result-item.highlight .result-item-value {
+            color: var(--accent-old);
+        }
+
+        .result-card.new .result-item.highlight .result-item-value {
+            color: var(--accent-new);
+        }
+
+        /* Savings Card */
+        .savings-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(34, 197, 94, 0.1) 100%);
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .savings-title {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .savings-amount {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-new);
+            margin-bottom: 0.5rem;
+        }
+
+        .savings-amount.negative {
+            color: var(--danger);
+        }
+
+        .savings-percent {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-new);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .savings-percent.negative {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        /* Tax Brackets Table */
+        .brackets-section {
+            margin-top: 2rem;
+        }
+
+        .brackets-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brackets-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .brackets-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .brackets-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .brackets-card-header {
+            padding: 1rem 1.25rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .brackets-card.old .brackets-card-header {
+            background: var(--accent-old-dim);
+            color: var(--accent-old);
+        }
+
+        .brackets-card.new .brackets-card-header {
+            background: var(--accent-new-dim);
+            color: var(--accent-new);
+        }
+
+        .brackets-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .brackets-table th,
+        .brackets-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        .brackets-table th {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.75rem;
+        }
+
+        .brackets-table td {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .brackets-table tr.active td {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .brackets-card.old .brackets-table tr.active td {
+            background: var(--accent-old-dim);
+        }
+
+        .brackets-card.new .brackets-table tr.active td {
+            background: var(--accent-new-dim);
+        }
+
+        .rate-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .brackets-card.old .rate-badge {
+            background: var(--accent-old-dim);
+            color: var(--accent-old);
+        }
+
+        .brackets-card.new .rate-badge {
+            background: var(--accent-new-dim);
+            color: var(--accent-new);
+        }
+
+        /* Deduction Info */
+        .deduction-info {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .deduction-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .deduction-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .deduction-item {
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--bg-secondary);
+        }
+
+        .deduction-item.old {
+            border-left: 3px solid var(--accent-old);
+        }
+
+        .deduction-item.new {
+            border-left: 3px solid var(--accent-new);
+        }
+
+        .deduction-item-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .deduction-item-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .deduction-item.old .deduction-item-value {
+            color: var(--accent-old);
+        }
+
+        .deduction-item.new .deduction-item-value {
+            color: var(--accent-new);
+        }
+
+        .deduction-item-sub {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        /* Number formatting */
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .mode-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            .input-card {
+                position: static;
+            }
+
+            .savings-amount {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">💰</div>
+            </div>
+            <h1>Tính Thuế TNCN</h1>
+            <p class="subtitle">So sánh Biểu thuế 7 bậc (Hiện hành) vs 5 bậc (Đề xuất mới)</p>
+            <span class="badge">✨ Cập nhật theo dự thảo Bộ Tài chính 2025</span>
+        </header>
+
+        <div class="mode-toggle">
+            <button class="mode-btn active" data-mode="gross-net">Gross → Net</button>
+            <button class="mode-btn" data-mode="net-gross">Net → Gross</button>
+        </div>
+
+        <div class="main-grid">
+            <div class="input-card">
+                <h2 class="card-title">
+                    <span class="card-title-icon">📝</span>
+                    Thông tin tính thuế
+                </h2>
+
+                <div class="form-group">
+                    <label id="income-label">Thu nhập Gross (trước thuế)</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="income" value="30,000,000" placeholder="Nhập thu nhập">
+                        <span class="input-suffix">VNĐ/tháng</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Số người phụ thuộc</label>
+                    <div class="dependents-group">
+                        <button class="dependents-btn" id="dep-minus">−</button>
+                        <span class="dependents-value" id="dep-value">0</span>
+                        <button class="dependents-btn" id="dep-plus">+</button>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <h3 class="section-title">⚙️ Tùy chỉnh BHXH</h3>
+
+                <div class="form-group">
+                    <label>Mức lương đóng BHXH</label>
+                    <div class="radio-group">
+                        <label class="radio-option active" data-value="full">
+                            <input type="radio" name="insurance-type" value="full" checked>
+                            <span class="radio-label">Full lương</span>
+                        </label>
+                        <label class="radio-option" data-value="custom">
+                            <input type="radio" name="insurance-type" value="custom">
+                            <span class="radio-label">Tùy chỉnh</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group custom-insurance-group" style="display: none;">
+                    <label>Lương đóng BHXH</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="insurance-salary" value="5,000,000" placeholder="Nhập mức lương">
+                        <span class="input-suffix">VNĐ/tháng</span>
+                    </div>
+                    <div class="input-hint">Thường là lương cơ bản ghi trên hợp đồng</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tỷ lệ đóng BHXH (người lao động)</label>
+                    <div class="input-wrapper small">
+                        <input type="text" id="insurance-rate" value="10.5" placeholder="10.5">
+                        <span class="input-suffix">%</span>
+                    </div>
+                    <div class="input-hint">Mặc định: BHXH 8% + BHYT 1.5% + BHTN 1% = 10.5%</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">ℹ️ Lưu ý về Giảm trừ gia cảnh</div>
+                    <div class="info-box-content">
+                        <strong>Hiện hành:</strong> Bản thân 11 triệu + Người phụ thuộc 4.4 triệu/người<br>
+                        <strong>Đề xuất mới:</strong> Bản thân 15.5 triệu + Người phụ thuộc 6.2 triệu/người
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <div class="comparison-grid">
+                    <!-- Old Tax System -->
+                    <div class="result-card old">
+                        <div class="result-card-header">
+                            <div class="result-card-title">
+                                <span class="result-card-icon">📊</span>
+                                <span class="result-card-label">Biểu thuế 7 bậc</span>
+                            </div>
+                            <span class="result-card-badge">Hiện hành</span>
+                        </div>
+                        
+                        <div class="result-item">
+                            <span class="result-item-label">Thu nhập Gross</span>
+                            <span class="result-item-value" id="old-gross">30,000,000 ₫</span>
+                        </div>
+                        <div class="result-item insurance-salary-row" style="display: none;">
+                            <span class="result-item-label">Lương đóng BHXH</span>
+                            <span class="result-item-value" id="old-insurance-salary">5,000,000 ₫</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-item-label">BHXH, BHYT, BHTN (<span class="insurance-rate-display">10.5</span>%)</span>
+                            <span class="result-item-value" id="old-insurance">-3,150,000 ₫</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-item-label">Giảm trừ bản thân</span>
+                            <span class="result-item-value" id="old-personal">-11,000,000 ₫</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-item-label">Giảm trừ người phụ thuộc</span>
+                            <span class="result-item-value" id="old-dependent">0 ₫</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-item-label">Thu nhập tính thuế</span>
+                            <span class="result-item-value" id="old-taxable">15,850,000 ₫</span>
+                        </div>
+                        <div class="result-item highlight">
+                            <span class="result-item-label">Thuế TNCN</span>
+                            <span class="result-item-value" id="old-tax">1,377,500 ₫</span>
+                        </div>
+                        <div class="result-item highlight">
+                            <span class="result-item-label">Thu nhập Net</span>
+                            <span class="result-item-value" id="old-net">25,472,500 ₫</span>
+                        </div>
+                    </div>
+
+                    <!-- New Tax System -->
+                    <div class="result-card new">
+                        <div class="result-card-header">
+                            <div class="result-card-title">
+                                <span class="result-card-icon">✨</span>
+                                <span class="result-card-label">Biểu thuế 5 bậc</span>
+                            </div>
+                            <span class="result-card-badge">Đề xuất mới</span>
+                        </div>
+                        
+                        <div class="result-item">
+                            <span class="result-item-label">Thu nhập Gross</span>
+                            <span class="result-item-value" id="new-gross">30,000,000 ₫</span>
+                        </div>
+                        <div class="result-item insurance-salary-row" style="display: none;">
+                            <span class="result-item-label">Lương đóng BHXH</span>
+                            <span class="result-item-value" id="new-insurance-salary">5,000,000 ₫</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-item-label">BHXH, BHYT, BHTN (<span class="insurance-rate-display">10.5</span>%)</span>
+                            <span class="result-item-value" id="new-insurance">-3,150,000 ₫</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-item-label">Giảm trừ bản thân</span>
+                            <span class="result-item-value" id="new-personal">-15,500,000 ₫</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-item-label">Giảm trừ người phụ thuộc</span>
+                            <span class="result-item-value" id="new-dependent">0 ₫</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-item-label">Thu nhập tính thuế</span>
+                            <span class="result-item-value" id="new-taxable">11,350,000 ₫</span>
+                        </div>
+                        <div class="result-item highlight">
+                            <span class="result-item-label">Thuế TNCN</span>
+                            <span class="result-item-value" id="new-tax">635,000 ₫</span>
+                        </div>
+                        <div class="result-item highlight">
+                            <span class="result-item-label">Thu nhập Net</span>
+                            <span class="result-item-value" id="new-net">26,215,000 ₫</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Savings -->
+                <div class="savings-card">
+                    <div class="savings-title">💸 Số tiền tiết kiệm được mỗi tháng</div>
+                    <div class="savings-amount" id="savings-amount">+742,500 ₫</div>
+                    <span class="savings-percent" id="savings-percent">Giảm 53.9% thuế</span>
+                </div>
+
+                <!-- Tax Brackets -->
+                <div class="brackets-section">
+                    <h3 class="brackets-title">
+                        📋 Bảng thuế lũy tiến từng phần
+                    </h3>
+                    <div class="brackets-grid">
+                        <div class="brackets-card old">
+                            <div class="brackets-card-header">Biểu thuế 7 bậc (Hiện hành)</div>
+                            <table class="brackets-table" id="old-brackets-table">
+                                <thead>
+                                    <tr>
+                                        <th>Bậc</th>
+                                        <th>Thu nhập tính thuế/tháng</th>
+                                        <th>Thuế suất</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>Đến 5 triệu</td><td><span class="rate-badge">5%</span></td></tr>
+                                    <tr><td>2</td><td>5 - 10 triệu</td><td><span class="rate-badge">10%</span></td></tr>
+                                    <tr><td>3</td><td>10 - 18 triệu</td><td><span class="rate-badge">15%</span></td></tr>
+                                    <tr><td>4</td><td>18 - 32 triệu</td><td><span class="rate-badge">20%</span></td></tr>
+                                    <tr><td>5</td><td>32 - 52 triệu</td><td><span class="rate-badge">25%</span></td></tr>
+                                    <tr><td>6</td><td>52 - 80 triệu</td><td><span class="rate-badge">30%</span></td></tr>
+                                    <tr><td>7</td><td>Trên 80 triệu</td><td><span class="rate-badge">35%</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="brackets-card new">
+                            <div class="brackets-card-header">Biểu thuế 5 bậc (Đề xuất mới)</div>
+                            <table class="brackets-table" id="new-brackets-table">
+                                <thead>
+                                    <tr>
+                                        <th>Bậc</th>
+                                        <th>Thu nhập tính thuế/tháng</th>
+                                        <th>Thuế suất</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>Đến 10 triệu</td><td><span class="rate-badge">5%</span></td></tr>
+                                    <tr><td>2</td><td>10 - 30 triệu</td><td><span class="rate-badge">10%</span></td></tr>
+                                    <tr><td>3</td><td>30 - 50 triệu</td><td><span class="rate-badge">20%</span></td></tr>
+                                    <tr><td>4</td><td>50 - 100 triệu</td><td><span class="rate-badge">30%</span></td></tr>
+                                    <tr><td>5</td><td>Trên 100 triệu</td><td><span class="rate-badge">35%</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deduction Info -->
+                <div class="deduction-info">
+                    <h3 class="brackets-title">📌 Mức giảm trừ gia cảnh</h3>
+                    <div class="deduction-grid">
+                        <div class="deduction-item old">
+                            <div class="deduction-item-title">Hiện hành</div>
+                            <div class="deduction-item-value">11,000,000 ₫/tháng</div>
+                            <div class="deduction-item-sub">+ 4,400,000 ₫/người phụ thuộc</div>
+                        </div>
+                        <div class="deduction-item new">
+                            <div class="deduction-item-title">Đề xuất mới</div>
+                            <div class="deduction-item-value">15,500,000 ₫/tháng</div>
+                            <div class="deduction-item-sub">+ 6,200,000 ₫/người phụ thuộc</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>⚠️ Đây là công cụ tính thuế tham khảo dựa trên dự thảo Luật Thuế TNCN sửa đổi của Bộ Tài chính.</p>
+            <p style="margin-top: 0.5rem;">Số liệu có thể thay đổi khi Luật được ban hành chính thức.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tax brackets configuration
+        const OLD_BRACKETS = [
+            { min: 0, max: 5000000, rate: 0.05 },
+            { min: 5000000, max: 10000000, rate: 0.10 },
+            { min: 10000000, max: 18000000, rate: 0.15 },
+            { min: 18000000, max: 32000000, rate: 0.20 },
+            { min: 32000000, max: 52000000, rate: 0.25 },
+            { min: 52000000, max: 80000000, rate: 0.30 },
+            { min: 80000000, max: Infinity, rate: 0.35 }
+        ];
+
+        const NEW_BRACKETS = [
+            { min: 0, max: 10000000, rate: 0.05 },
+            { min: 10000000, max: 30000000, rate: 0.10 },
+            { min: 30000000, max: 50000000, rate: 0.20 },
+            { min: 50000000, max: 100000000, rate: 0.30 },
+            { min: 100000000, max: Infinity, rate: 0.35 }
+        ];
+
+        // Deductions
+        const OLD_PERSONAL_DEDUCTION = 11000000;
+        const OLD_DEPENDENT_DEDUCTION = 4400000;
+        const NEW_PERSONAL_DEDUCTION = 15500000;
+        const NEW_DEPENDENT_DEDUCTION = 6200000;
+        const MAX_INSURANCE_SALARY = 46800000; // Mức lương tối đa đóng BHXH
+
+        // State
+        let mode = 'gross-net';
+        let dependents = 0;
+        let insuranceType = 'full';
+        let customInsuranceSalary = 5000000;
+        let insuranceRate = 0.105; // 10.5%
+
+        // DOM Elements
+        const incomeInput = document.getElementById('income');
+        const incomeLabel = document.getElementById('income-label');
+        const depValue = document.getElementById('dep-value');
+        const depMinus = document.getElementById('dep-minus');
+        const depPlus = document.getElementById('dep-plus');
+        const modeBtns = document.querySelectorAll('.mode-btn');
+        const radioOptions = document.querySelectorAll('.radio-option');
+        const customInsuranceGroup = document.querySelector('.custom-insurance-group');
+        const insuranceSalaryInput = document.getElementById('insurance-salary');
+        const insuranceRateInput = document.getElementById('insurance-rate');
+
+        // Format number with commas
+        function formatNumber(num) {
+            return Math.round(num).toLocaleString('vi-VN');
+        }
+
+        // Parse number from formatted string
+        function parseNumber(str) {
+            return parseInt(str.replace(/[^\d]/g, '')) || 0;
+        }
+
+        // Calculate tax using progressive brackets
+        function calculateTax(taxableIncome, brackets) {
+            if (taxableIncome <= 0) return 0;
+            
+            let tax = 0;
+            let remaining = taxableIncome;
+
+            for (const bracket of brackets) {
+                if (remaining <= 0) break;
+                
+                const bracketSize = bracket.max - bracket.min;
+                const taxableInBracket = Math.min(remaining, bracketSize);
+                tax += taxableInBracket * bracket.rate;
+                remaining -= taxableInBracket;
+            }
+
+            return tax;
+        }
+
+        // Find which bracket a taxable income falls into
+        function findBracketIndex(taxableIncome, brackets) {
+            if (taxableIncome <= 0) return -1;
+            
+            for (let i = 0; i < brackets.length; i++) {
+                if (taxableIncome <= brackets[i].max) {
+                    return i;
+                }
+            }
+            return brackets.length - 1;
+        }
+
+        // Calculate Gross to Net
+        function calculateGrossToNet(gross, deps, isNew) {
+            const personalDeduction = isNew ? NEW_PERSONAL_DEDUCTION : OLD_PERSONAL_DEDUCTION;
+            const dependentDeduction = isNew ? NEW_DEPENDENT_DEDUCTION : OLD_DEPENDENT_DEDUCTION;
+            const brackets = isNew ? NEW_BRACKETS : OLD_BRACKETS;
+
+            // Tính mức lương đóng BHXH
+            let insurableSalary;
+            if (insuranceType === 'full') {
+                insurableSalary = Math.min(gross, MAX_INSURANCE_SALARY);
+            } else {
+                insurableSalary = Math.min(customInsuranceSalary, MAX_INSURANCE_SALARY);
+            }
+            
+            const insurance = insurableSalary * insuranceRate;
+            const totalDeduction = personalDeduction + (deps * dependentDeduction);
+            const taxableIncome = Math.max(0, gross - insurance - totalDeduction);
+            const tax = calculateTax(taxableIncome, brackets);
+            const net = gross - insurance - tax;
+
+            return {
+                gross,
+                insurance,
+                insurableSalary,
+                personalDeduction,
+                dependentDeduction: deps * dependentDeduction,
+                taxableIncome,
+                tax,
+                net,
+                bracketIndex: findBracketIndex(taxableIncome, brackets)
+            };
+        }
+
+        // Calculate Net to Gross using binary search
+        function calculateNetToGross(targetNet, deps, isNew) {
+            let low = targetNet;
+            let high = targetNet * 2;
+            let result;
+
+            // Binary search to find gross that gives target net
+            for (let i = 0; i < 100; i++) {
+                const mid = (low + high) / 2;
+                result = calculateGrossToNet(mid, deps, isNew);
+                
+                if (Math.abs(result.net - targetNet) < 1) {
+                    break;
+                }
+                
+                if (result.net < targetNet) {
+                    low = mid;
+                } else {
+                    high = mid;
+                }
+            }
+
+            return result;
+        }
+
+        // Update UI
+        function updateUI() {
+            const inputValue = parseNumber(incomeInput.value);
+            
+            let oldResult, newResult;
+            
+            if (mode === 'gross-net') {
+                oldResult = calculateGrossToNet(inputValue, dependents, false);
+                newResult = calculateGrossToNet(inputValue, dependents, true);
+            } else {
+                oldResult = calculateNetToGross(inputValue, dependents, false);
+                newResult = calculateNetToGross(inputValue, dependents, true);
+            }
+
+            // Show/hide insurance salary rows
+            const insuranceSalaryRows = document.querySelectorAll('.insurance-salary-row');
+            insuranceSalaryRows.forEach(row => {
+                row.style.display = insuranceType === 'custom' ? 'flex' : 'none';
+            });
+
+            // Update old tax results
+            document.getElementById('old-gross').textContent = formatNumber(oldResult.gross) + ' ₫';
+            document.getElementById('old-insurance-salary').textContent = formatNumber(oldResult.insurableSalary) + ' ₫';
+            document.getElementById('old-insurance').textContent = '-' + formatNumber(oldResult.insurance) + ' ₫';
+            document.getElementById('old-personal').textContent = '-' + formatNumber(oldResult.personalDeduction) + ' ₫';
+            document.getElementById('old-dependent').textContent = '-' + formatNumber(oldResult.dependentDeduction) + ' ₫';
+            document.getElementById('old-taxable').textContent = formatNumber(oldResult.taxableIncome) + ' ₫';
+            document.getElementById('old-tax').textContent = formatNumber(oldResult.tax) + ' ₫';
+            document.getElementById('old-net').textContent = formatNumber(oldResult.net) + ' ₫';
+
+            // Update new tax results
+            document.getElementById('new-gross').textContent = formatNumber(newResult.gross) + ' ₫';
+            document.getElementById('new-insurance-salary').textContent = formatNumber(newResult.insurableSalary) + ' ₫';
+            document.getElementById('new-insurance').textContent = '-' + formatNumber(newResult.insurance) + ' ₫';
+            document.getElementById('new-personal').textContent = '-' + formatNumber(newResult.personalDeduction) + ' ₫';
+            document.getElementById('new-dependent').textContent = '-' + formatNumber(newResult.dependentDeduction) + ' ₫';
+            document.getElementById('new-taxable').textContent = formatNumber(newResult.taxableIncome) + ' ₫';
+            document.getElementById('new-tax').textContent = formatNumber(newResult.tax) + ' ₫';
+            document.getElementById('new-net').textContent = formatNumber(newResult.net) + ' ₫';
+
+            // Update savings
+            const savingsAmount = document.getElementById('savings-amount');
+            const savingsPercent = document.getElementById('savings-percent');
+            
+            if (mode === 'gross-net') {
+                const savings = newResult.net - oldResult.net;
+                const taxReduction = oldResult.tax > 0 ? ((oldResult.tax - newResult.tax) / oldResult.tax * 100) : 0;
+                
+                savingsAmount.textContent = (savings >= 0 ? '+' : '') + formatNumber(savings) + ' ₫';
+                savingsAmount.classList.toggle('negative', savings < 0);
+                
+                if (oldResult.tax === 0 && newResult.tax === 0) {
+                    savingsPercent.textContent = 'Không phải nộp thuế';
+                } else {
+                    savingsPercent.textContent = `Giảm ${taxReduction.toFixed(1)}% thuế`;
+                }
+                savingsPercent.classList.toggle('negative', savings < 0);
+            } else {
+                const grossDiff = newResult.gross - oldResult.gross;
+                savingsAmount.textContent = (grossDiff <= 0 ? '' : '+') + formatNumber(grossDiff) + ' ₫';
+                savingsAmount.classList.toggle('negative', grossDiff > 0);
+                
+                const percentDiff = oldResult.gross > 0 ? ((oldResult.gross - newResult.gross) / oldResult.gross * 100) : 0;
+                savingsPercent.textContent = `Gross thấp hơn ${percentDiff.toFixed(1)}%`;
+                savingsPercent.classList.toggle('negative', grossDiff > 0);
+            }
+
+            // Highlight active brackets
+            highlightBrackets(oldResult.bracketIndex, newResult.bracketIndex);
+        }
+
+        // Highlight active tax brackets
+        function highlightBrackets(oldIndex, newIndex) {
+            const oldRows = document.querySelectorAll('#old-brackets-table tbody tr');
+            const newRows = document.querySelectorAll('#new-brackets-table tbody tr');
+
+            oldRows.forEach((row, i) => {
+                row.classList.toggle('active', i <= oldIndex && oldIndex >= 0);
+            });
+
+            newRows.forEach((row, i) => {
+                row.classList.toggle('active', i <= newIndex && newIndex >= 0);
+            });
+        }
+
+        // Event listeners
+        incomeInput.addEventListener('input', function(e) {
+            const value = parseNumber(e.target.value);
+            const cursorPos = e.target.selectionStart;
+            const oldLength = e.target.value.length;
+            
+            e.target.value = formatNumber(value);
+            
+            // Adjust cursor position
+            const newLength = e.target.value.length;
+            const diff = newLength - oldLength;
+            e.target.setSelectionRange(cursorPos + diff, cursorPos + diff);
+            
+            updateUI();
+        });
+
+        depMinus.addEventListener('click', () => {
+            if (dependents > 0) {
+                dependents--;
+                depValue.textContent = dependents;
+                updateUI();
+            }
+        });
+
+        depPlus.addEventListener('click', () => {
+            if (dependents < 10) {
+                dependents++;
+                depValue.textContent = dependents;
+                updateUI();
+            }
+        });
+
+        modeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                mode = btn.dataset.mode;
+                
+                if (mode === 'gross-net') {
+                    incomeLabel.textContent = 'Thu nhập Gross (trước thuế)';
+                } else {
+                    incomeLabel.textContent = 'Thu nhập Net (sau thuế)';
+                }
+                
+                updateUI();
+            });
+        });
+
+        // Insurance type toggle
+        radioOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                radioOptions.forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+                insuranceType = option.dataset.value;
+                
+                if (insuranceType === 'custom') {
+                    customInsuranceGroup.style.display = 'block';
+                } else {
+                    customInsuranceGroup.style.display = 'none';
+                }
+                
+                updateUI();
+            });
+        });
+
+        // Custom insurance salary input
+        insuranceSalaryInput.addEventListener('input', function(e) {
+            const value = parseNumber(e.target.value);
+            const cursorPos = e.target.selectionStart;
+            const oldLength = e.target.value.length;
+            
+            e.target.value = formatNumber(value);
+            customInsuranceSalary = value;
+            
+            const newLength = e.target.value.length;
+            const diff = newLength - oldLength;
+            e.target.setSelectionRange(cursorPos + diff, cursorPos + diff);
+            
+            updateUI();
+        });
+
+        // Insurance rate input
+        insuranceRateInput.addEventListener('input', function(e) {
+            let value = parseFloat(e.target.value) || 10.5;
+            if (value > 100) value = 100;
+            if (value < 0) value = 0;
+            insuranceRate = value / 100;
+            
+            // Update display
+            document.querySelectorAll('.insurance-rate-display').forEach(el => {
+                el.textContent = value;
+            });
+            
+            updateUI();
+        });
+
+        // Initial calculation
+        updateUI();
+    </script>
+</body>
+</html>
